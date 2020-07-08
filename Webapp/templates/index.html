@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Chat with a Bot</title>
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <style>
+ * {
+ box-sizing: border-box
+ }/* Set height of body and the document to 100% */
+ body, html {
+ height: 100%;
+ margin: 0;
+ font-family: Arial;
+ }
+ #chatbox {
+ margin-left: auto;
+ margin-right: auto;
+ width: 40%;
+ margin-top: 60px;
+ }
+ #userInput {
+ margin-left: auto;
+ margin-right: auto;
+ width: 40%;
+ margin-top: 60px;
+ }
+ #textInput {
+ width: 90%;
+ border: none;
+ border-bottom: 3px solid black;
+ font-family: monospace;
+ font-size: 17px;
+ }
+ .userText {
+ color: white;
+ font-family: monospace;
+ font-size: 17px;
+ text-align: right;
+ line-height: 30px;
+ }
+ .userText span {
+ background-color: #ebc05e;
+ padding: 10px;
+ border-radius: 2px;
+ }
+ .botText {
+ color: white;
+ font-family: monospace;
+ font-size: 17px;
+ text-align: left;
+ line-height: 30px;
+ }
+ .botText span {
+ background-color: #414654;
+ padding: 10px;
+ border-radius: 2px;
+ }
+ #tidbit {
+ position: absolute;
+ bottom: 0;
+ right: 0;
+ width: 300px;
+ }
+ .boxed {
+ margin-left: auto;
+ margin-right: auto;
+ width: 78%;
+ margin-top: 60px;
+ border:  5px solid black
+ }
+ </style>
+</head>
+<body bgcolor="gray">
+ <div>
+ <h1 align="center"><b>Welcome</b></h1>
+ <h2 align="center"><b>I am a chat bot based on Natural Language Processing Model</b></h2>
+ <p align="center"><img src="https://raw.githubusercontent.com/AkilaBalasundaram/Medium/master/avatar.JPG" alt="avatar" style="width:100px;height:100px;"/></p>
+ <div class="boxed">
+ <div>
+ <div id="chatbox">
+ <p class="botText">
+ <span>Hi I am Bala the ChatBot!!</span>
+ </p>
+ </div>
+<div id="userInput">
+ <form id="chat-box" class="chat-box"    action="{{ url_for('chat')}}" method="post" >
+  <textarea id="inputtext" name="msg" placeholder=" Type here to chat with me."></textarea>
+</form>
+ </div>
+ </div>
+ <script>
+ function getBotResponse() {
+ var rawText = $("#inputtext").val();
+ var userHtml = '<p class="userText"><span>' + rawText + "</span></p>";
+ $("#inputtext").val("");
+ $("#chatbox").append(userHtml);
+ document
+ .getElementById("userInput")
+ .scrollIntoView({ block: "start", behavior: "smooth" });
+ $.get("/chat", { msg: rawText }).done(function (data) {
+ var botHtml = '<p class="botText"><span>' + data + "</span></p>";
+ $("#chatbox").append(botHtml);
+ document
+ .getElementById("userInput")
+ .scrollIntoView({ block: "start", behavior: "smooth" });
+ });
+ }
+ $("#inputtext").keypress(function (e) {
+ if (e.which == 13) {
+ getBotResponse();
+ }
+ });
+ </script>
+ </div>
+ </div>
+</body>
+</html>
