@@ -15,7 +15,8 @@ words=[]
 labels=[]
 training=[]
 output=[]
-words,labels,training,output = joblib.load(open('C:/Users/nmayavan.EAD/bot/Scripts/webapp/model/data.pkl', 'rb'))
+words,labels,training,output = joblib.load(open('/Users/marcell/Python_Projects/Medium/Webapp/model/data.pkl, 'rb'))
+
 # defining a network and loading a pretrained model into it.
 tensorflow.reset_default_graph()
 net=tflearn.input_data(shape=[None,len(training[0])])
@@ -27,7 +28,7 @@ model=tflearn.DNN(net)
 model.load(f'C:/Users/nmayavan.EAD/bot/Scripts/model.tflearn')
 
 #model = joblib.load(open('C:/Users/nmayavan.EAD/bot/Scripts/webapp/model/bot_model.pkl', 'rb'))
-app = Flask(__name__, template_folder='C:/Users/nmayavan.EAD/bot/Scripts/webapp/templates/')
+app = Flask(__name__, template_folder='/Users/marcell/Python_Projects/Medium/Webapp/templates/')
 with open("intents.json") as file:
     data=json.load(file)
 
